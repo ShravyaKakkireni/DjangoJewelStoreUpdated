@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <div class="container" style="text-align: center;">
+<div class="bg">
         <div class="row">
             <h2><center>Checkout</center></h2>
 
@@ -18,7 +18,8 @@
             <form action="" method="post">
                 <table>
                     {% csrf_token %}
-                    {{ form.as_table }}
+                      {{ form.as_table }}
+                    
                     <tr>
                         <td></td>
                         <td><input type="submit" value="Place Order" style="width: 100%; padding: 12px; color: white;

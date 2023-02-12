@@ -15,7 +15,11 @@ class CheckoutForm(forms.ModelForm):
     class Meta:
         model = Order
         exclude = ('paid',)
-
         widgets = {
             'address': forms.Textarea(attrs={'row': 5, 'col': 8}),
         }
+
+class RatingForm(forms.Form):
+    rating = forms.IntegerField()
+    
+

@@ -4,30 +4,23 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}Simple ecommerce </title>
     <style>
-        table{
-            border-collapse: collapse;
-            border: none;
-        }
-        td{
-            padding: 10px;
-        }
-        form{
-            border: 3px solid #f1f1f1;
-            margin-bottom: 0;
-        }
         body  {
-            height: 200px;
-            background-color: #e9c1c1;
+            height: 600px;
+        }
+        .bg{
+            background-image: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvNDE1LWthcm9saW5hLWdyYWJvd3NrYS1rYWJvb21waWNzLTA3NzYtamotYS5qcGc.jpg");
+          
+            background-repeat: no-repeat;
+            background-size: cover;
         }
         button {
-        background-color: #edc1de;
         color: white;
         padding: 7px 11px;
         margin: 8px 0;
         border: none;
         cursor: pointer;
-        width: 50%;
-    }
+        width: 20%;
+        }
     /* set a hover effect for the button*/
      
     button:hover {
@@ -36,8 +29,9 @@
     </style>
 </head>
 <body>
-
     <p>
+        
+        <p class="py-5 text-center">
         <a class="nav-link waves-effect" href="{% url 'index' %}">All Products</a> |
         <a class="nav-link waves-effect" href="{% url 'show_cart' %}">Cart: {{ cart_item_count }} item</a>
     </p>  

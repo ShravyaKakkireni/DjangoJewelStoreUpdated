@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.urls import re_path as url
 from django.urls import path
+from onlinestore.views import cancel_order
 from . import views
 
 
@@ -14,4 +15,6 @@ urlpatterns = [
     path('cart', views.show_cart , name='show_cart'),
     path('signout', views.signout, name='signout'),
     path('checkout/', views.checkout, name='checkout'),
+    path('cancel_order/<uuid:token>/', cancel_order, name='cancel_order'),
+    path('rating/', views.rating_view, name='rating'),
 ]

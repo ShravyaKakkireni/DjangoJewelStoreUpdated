@@ -20,8 +20,7 @@
     {% endfor %}
     {% block content %}
 
-    <div class="container">
-        <div class="row">
+    <div class="bg">
     <center><h2 style="font-size: 50px;">Welcome to Jewel store!</h2> 
 
     {% if user.is_authenticated %}
@@ -43,7 +42,7 @@
     <button type="submit" style="background: white;font-size: 20px;"><a href="/signin">SignIn</a></button></center>
     {% endif %}
     
-        </div>
+        
     </div>
 
 {% endblock %}

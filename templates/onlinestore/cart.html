@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+
 <section class="vh-100">
     <div class="container">
             <style>
@@ -51,40 +52,47 @@
     {% if cart_item_count %}
     <table>
         <thead>
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th></th>
-            <th></th>
-            <th>Total</th>
-        </tr>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+                <th></th>
+                <th>Total</th>
+            </tr>
         </thead>
         <tbody>
-        {% for item in cart_items %}
-            <tr>
-                <td><h3 class=”title”>{{ item.product.name }}</h3></td>
-                <td>{{ item.price }}</td>
-                <td>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input type="text" name="quantity" value="{{ item.quantity }}">
-                        <input type="hidden" name="item_id" value="{{ item.id }}">
-                </td>
-                <td>
+            {% for item in cart_items.all %}
+                <tr>
+                    <td><h3 class="title">{{ item.product.name }}</h3></td>
+                    <td>{{ item.product.price }}</td>
+                    <td>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <select name="quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                
+                            </select>
+
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                    </td>
+                    <td>
                         <input type="submit" name="submit" value="Update">
-                    </form>
-                </td>
-                <td>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="item_id" value="{{ item.id }}">
                         <input type="submit" name="submit" value="Remove">
-                    </form>
-                </td>
-                <td>${{ item.total_cost }}</td>
-            </tr>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
+    </ul>
+    {% endif %}
         </tbody>    
         <tfoot>
             <tr>
@@ -102,13 +110,7 @@
             </tr>
         </tfoot>
     </table>
-        </div>
-      </div>
-    </div>
-</section>
-    {% else %}
-        <p>Cart Empty</p>
-    {% endif %}
-
-
+{% else %}
+    <p>Cart Empty</p>
+{% endif %}
 {% endblock %}

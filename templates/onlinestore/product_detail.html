@@ -6,12 +6,13 @@
 
 
 {% block content %}
+<div class="bg">
 <div class="container">
     <div class="row" style="margin-top: 1%">
         <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
+  max-width: 500px;
   margin: auto;
   text-align: center;
   font-family: arial;
@@ -32,13 +33,56 @@
                 <p class="price">Price ${{ product.price }}</p>
                 <p class="card-text">Description : {{ product.description }}</p>
                 
+                
                 <form action="{% url 'product_detail' product.pk product.slug %}" method="post">
                     {% csrf_token %}
                     {{ form }}
+                    {% if product.products_count > 0 %}
                     <input type="submit" value="Add to cart" style="width: 100%; padding: 12px; color: white;
                     background-color: #000; font-size: 18px;">
+                    {% else %}
+                    <input type="text" value="Out of stock" style="width: 100%; padding: 12px; color: white;
+                    background-color: #000; font-size: 18px;"> 
+                    {% endif %}
+<p class="card-text">Rating: {{ product.rating }}</p>
+                </form>  
+                    <!--<div class="ratings">
+                      {% for rating in product.ratings.all %}
+                          <p>{{ rating.rating }}</p>
+                      {% endfor %}
+                  </div>
+                   <h2>Average Rating: {{ average_rating }}</h2>
+
                 </form>
-</div></div></div></div>
+                ADD RATINGS TO PRODUCT PAGE
+                <div>
+                    <div>
+                      <label>Rating:</label>
+                      <select id="rating" name="rating">
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                      </select>
+                    </div>
+                    <div>
+                      <button id="saveRating">Save Rating</button>
+                    </div>
+                    <div>
+                      <h3>Rating: </h3><span id="ratingResult"></span>
+                    </div>
+                  </div>
+                  
+                  <script>
+                    var saveButton = document.getElementById('saveRating');
+                    saveButton.addEventListener('click', function(){
+                      var ratingValue = document.getElementById('rating').value;
+                      document.getElementById('ratingResult').innerHTML = ratingValue;
+                    });
+                  </script>
+
+</div></div></div></div></div>-->
                 
        
 
