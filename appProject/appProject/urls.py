@@ -1,0 +1,38 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index),
+    path('alogin/', views.alogin),
+    path('blogin/', views.blogin),
+    path('alogin1/', views.alogin1),
+    path('bLogin1/', views.bLogin1),
+    path('buyReg1/', views.buyReg1),
+    path('Buyer/', views.Buyer),
+    path('msg/', views.buyReg1),
+    path('loginWithOtp/',views.buyReg1),
+    path('loginWithOtp1/',views.loginWithOtp1),
+    path('logout/', views.logout),
+    path('admin/',views.admin),
+    path('addCategory/', views.addCategory),
+    path('addCategory1/', views.addCategory1),
+    path('addProduct/', views.addProduct),
+    path('addProduct1/', views.addProduct1),
+    path('adminProducts/',views.adminProducts),
+    path('addToCart/',views.addToCart),
+    path('viewOrders/',views.viewOrders),
+    path('viewOrdersAdmin/',views.viewOrdersAdmin),
+    path('editProduct/', views.editProduct),
+    path('editProduct1/', views.editProduct1),
+    path('Subscribe_product/', views.Subscribe_product),
+    path('removeCart/', views.removeCart),
+    path('orderNow/', views.orderNow),
+    path('orderNow1/',views.orderNow1),
+    path('dispatch/',views.dispatch),
+    path('makeAsReceived/',views.makeAsReceived),
+    path('CancelOrder/',views.CancelOrder),
+    path('give_rating/',views.give_rating),
+    path('give_rating1/',views.give_rating1),
+    path('total_reviews/',views.total_reviews),
+
+]
