@@ -1,0 +1,65 @@
+{% if 'admin' in request.session%}
+{% include 'admin.html' %}
+{% elif 'Buyer' in request.session%}
+{% include 'Buyer.html' %}
+{% endif%}
+
+{% load custom_tags %}
+<style>
+    .card {
+  border: 20px solid SlateBlue;
+
+}
+
+</style>
+{% load custom_tags %}
+<div class="container mt-5">
+    <div class="row">
+        {% for buyer_order in buyer_orders %}
+        {{ somevariable|cut:"0" }}
+        {{somevariable}}
+        <div class="col-md-12 mt-3">
+            <div class="card " style="background-color:DarkSalmon">
+                <div class="row">
+                    <div class="col-md-4 text-white text-center" style="font-size:15px;">OrderBy : {{buyer_order.3 |get_buyer_by_Buyer_id}} (Customer)</div>
+                    <div class="col-md-4 text-white text-center" style="font-size:15px;">Order Date : {{buyer_order.2}}</div>
+                    <div class="col-md-4 text-white text-center" style="font-size:15px;">Status: {{buyer_order.1}}</div>
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            {{buyer_order.0 |get_buyer_order_item_by_buyer_order_id2 | safe}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-4 text-white">
+                                <div class="" style="font-size:10px;">Address :</div>
+                                <div class="" style="font-size:15px;">{{buyer_order.4}}</div>
+                            </div>
+                        </div>
+                         <div class="col-md-4"></div>
+                         <div class="col-md-4">
+                             {% if buyer_order.1 == 'cart' %}
+                             <a href="../orderNow/?buyer_order_id={{buyer_order.0}}" class="btn btn-primary w-100">Order Now</a>
+                           {% endif%}
+                             {% if 'admin' in request.session %}
+                              {% if buyer_order.1 == 'Ordered' %}
+                             <a href="../dispatch/?buyer_order_id={{buyer_order.0}}" class="btn btn-primary w-100">Dispatch Order</a>
+                             {% endif%}
+                             {% endif%}
+                             {% if 'Buyer' in request.session %}
+                              {% if buyer_order.1 == 'Order Dispatched' %}
+                             <a href="../makeAsReceived/?buyer_order_id={{buyer_order.0}}" class="btn btn-primary w-100">Make as Received</a>
+                             {% endif%}
+                             {% endif%}
+
+                         </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor%}
+    </div>
+</div>

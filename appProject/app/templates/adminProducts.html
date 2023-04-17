@@ -1,0 +1,124 @@
+{% if 'admin' in request.session%}
+{% include 'admin.html' %}
+{% elif 'Buyer' in request.session%}
+{% include 'Buyer.html' %}
+{% endif%}
+{% load custom_tags %}
+<div class="container">
+    <form action="../adminProducts/" method="get">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="category_id" class="form-label text-black"><b>Category</b></label>
+                <select name="category_id" id="category_id" class="form-control">
+                    <option value="">All Category</option>
+                    {%  for category in categories%}
+                    <option value="{{category.0}}" {% if  category_id == category.0  %} selected {% endif %}>{{category.1}}</option>
+                    {% endfor%}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="product_name" class="form-label text-black"><b>Product Name</b></label>
+                <input type="search" name="product_name" id="product_name" placeholder="Search Product" class="form-control"  value ="{{product_name}}">
+            </div>
+            <div class="col-md-4 mt-4 pt-2">
+                <input type="submit" value="search" class="btn btn-danger">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4">
+                <div class="card m-2">
+                    <img src="../static/pictures/{{product.4}}" style="max-height:180px; max-width:100%">
+                    <div class="row p-2">
+
+                        <div class="col-md-4" style="font-size:70%">
+                             ProductName:
+                        </div>
+                        <div class="col-md-8 h6" style="font-size:80%">
+                            {{product.1}}
+                        </div>
+                        <div class="col-md-4" style="font-size:70%">
+                             Price:
+                        </div>
+                        <div class="col-md-8 h6" style="font-size:80%">
+                            $ {{product.2}}
+                        </div>
+                        <div class="col-md-4" style="font-size:70%">
+                             Available Count :
+                        </div>
+                        <div class="col-md-8 h6" style="font-size:80%">
+                            {{product.3}}
+                        </div>
+
+                        <div class="col-md-4" style="font-size:70%">
+                             Category :
+                        </div>
+                        <div class="col-md-8 h6" style="font-size:80%">
+                            {{ product.6 |get_category_by_product_id}}
+                        </div>
+                        <div class="col-md-4" style="font-size:70%;">
+                             Description
+                        </div>
+                        <div class="col-md-8 h6" style="font-size:70%;height:50px;overflow:auto">
+                            {{product.5}}
+                        </div>
+                        <div class="col-md-4" style="font-size:70%;">
+                             Rating
+                        </div>
+                         <div class="col-md-8 h6" style="font-size:80%">
+                          <a href="../total_reviews/?product_id={{product.0}}"><b>{{ product.0 |get_review_by_product_id}}</b></a>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <form action="../editProduct/" method="post">
+                                    {% csrf_token %}
+                                    {% if 'admin' in request.session %}
+                                    <input type="hidden" name="product_id" value="{{product.0}}">
+                                    <input type="hidden" name="available_count" value="{{product.3}}">
+                                    <input type="submit" value="Edit Product" class="btn btn-primary" >
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                        {% if  product.3 == '0' %}
+                         <form action="../Subscribe_product/" method="post">
+                            {% csrf_token %}
+                             {% if 'Buyer' in request.session %}
+                            <input type="hidden" name="product_id" value="{{product.0}}">
+                            <input type="submit" value="Subscribe" class="btn btn-warning">
+                             {% endif%}
+                         </form>
+                        {% else %}
+                        <form action="../addToCart/" method="post">
+                            {% csrf_token %}
+                            {% if 'Buyer' in request.session %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="number" class="form-control" name="quantity" id="quantity" min="1" max="{{product.3}}"  required>
+                                    <input type="hidden" name="product_id" value="{{product.0}}">
+                                    <input type="hidden" name="available_count" value="{{product.3}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="submit" value="Add to Cart" class="btn btn-danger">
+                                </div>
+                            </div>
+
+
+                          {% endif %}
+                        </form>
+
+                        {% endif%}
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
